@@ -56,14 +56,18 @@ public class JdbcIdAndVersionStream implements IdAndVersionStream {
 
     private Iterator<IdAndVersion> createIterator(IdAndVersionFactory factory) {
         try {
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-            statement.setFetchSize(fetchSize);
-            resultSet = statement.executeQuery(sql);
+            createStatementAndResultSet();
             return new IdAndVersionResultSetIterator(resultSet, factory);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void createStatementAndResultSet() throws SQLException {
+        connection.setAutoCommit(false);
+        statement = connection.createStatement();
+        statement.setFetchSize(fetchSize);
+        resultSet = statement.executeQuery(sql);
     }
 
     @Override
