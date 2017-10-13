@@ -19,6 +19,7 @@ import com.google.common.collect.Iterables;
 public class JdbcIdAndVersionStream implements IdAndVersionStream {
 
     private static final Logger LOG = LogUtils.loggerForThisClass();
+    private static final int DEFAULT_FETCH_SIZE = 1000;
 
     private final Connection connection;
     private final String sql;
@@ -27,11 +28,18 @@ public class JdbcIdAndVersionStream implements IdAndVersionStream {
     private Statement statement;
     private ResultSet resultSet;
     private Iterator<IdAndVersion> iterator;
+    private final int fetchSize;
 
-    public JdbcIdAndVersionStream(Connection connection, String sql, IdAndVersionFactory factory) {
+    public JdbcIdAndVersionStream(Connection connection, String sql, IdAndVersionFactory factory){
+        this(connection, sql, factory, DEFAULT_FETCH_SIZE);
+
+    }
+
+    public JdbcIdAndVersionStream(Connection connection, String sql, IdAndVersionFactory factory, int fetchSize) {
         this.connection = connection;
         this.sql = sql;
         this.factory = factory;
+        this.fetchSize = fetchSize;
     }
 
     @Override
@@ -48,7 +56,9 @@ public class JdbcIdAndVersionStream implements IdAndVersionStream {
 
     private Iterator<IdAndVersion> createIterator(IdAndVersionFactory factory) {
         try {
+            connection.setAutoCommit(false);
             statement = connection.createStatement();
+            statement.setFetchSize(fetchSize);
             resultSet = statement.executeQuery(sql);
             return new IdAndVersionResultSetIterator(resultSet, factory);
         } catch (SQLException e) {

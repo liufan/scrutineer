@@ -1,5 +1,9 @@
 package com.aconex.scrutineer;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import com.aconex.scrutineer.elasticsearch.ElasticSearchDownloader;
 import com.aconex.scrutineer.elasticsearch.ElasticSearchIdAndVersionStream;
 import com.aconex.scrutineer.elasticsearch.ElasticSearchSorter;
@@ -19,10 +23,6 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.node.Node;
 import org.slf4j.Logger;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Scrutineer {
 
@@ -141,7 +141,7 @@ public class Scrutineer {
 
     JdbcIdAndVersionStream createJdbcIdAndVersionStream(ScrutineerCommandLineOptions options) {
         this.connection = initializeJdbcDriverAndConnection(options);
-        return new JdbcIdAndVersionStream(connection, options.sql, idAndVersionFactory);
+        return new JdbcIdAndVersionStream(connection, options.sql, idAndVersionFactory, options.fetchSize);
     }
 
     private Connection initializeJdbcDriverAndConnection(ScrutineerCommandLineOptions options) {

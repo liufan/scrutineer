@@ -21,11 +21,14 @@ public class ScrutineerCommandLineOptions {
     @Parameter(names = "--jdbcURL", description = "JDBC URL of the Connection of the Primary source", required = true)
     public String jdbcURL;
 
-    @Parameter(names = "--jdbcUser", description = "JDBC Username", required = true)
+    @Parameter(names = "--jdbcUser", description = "JDBC Username", required = false)
     public String jdbcUser;
 
     @Parameter(names = "--jdbcPassword", description = "JDBC Password", required = false)
     public String jdbcPassword;
+
+    @Parameter(names = "--jdbcFetchSize", description = "size of JDBC cursor row fetch", required = false)
+    public int fetchSize = 1000;
 
     @Parameter(names = "--sql", description = "SQL used to create Primary stream, which should return results in _lexicographical_ order", required = true)
     public String sql;
