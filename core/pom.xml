@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.aconex.scrutineer2</groupId>
-        <artifactId>scrutineer-pom</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <artifactId>scrutineer2-pom</artifactId>
+        <groupId>com.aconex.scrutineer</groupId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>core</artifactId>
+    <artifactId>scrutineer-core</artifactId>
     <name>Scrutineer Core</name>
 
     <properties>
@@ -39,11 +39,6 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.util</groupId>
-            <artifactId>java-merge-sort</artifactId>
-            <version>1.0.2</version>
         </dependency>
     </dependencies>
 </project>
