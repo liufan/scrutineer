@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>scrutineer-core</artifactId>
+    <artifactId>core</artifactId>
     <name>Scrutineer Core</name>
 
     <properties>
